@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Raspi-Bot-Controller
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label>head pan</ion-label>
+      <ion-range min="0" max="180" [(ngModel)]="headPan"
+                 color="secondary" debounce="500" pin="true" step="5"
+                 (ionBlur)="onHeadPan($event)">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>180</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>head tilt</ion-label>
+      <ion-range min="0" max="180" [(ngModel)]="headTilt"
+                 color="secondary" debounce="500" pin="true" step="5"
+                 (ionBlur)="onHeadTilt($event)">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>180</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>arm base</ion-label>
+      <ion-range min="0" max="180" [(ngModel)]="armBase"
+                 color="secondary" debounce="500" pin="true" step="5"
+                 (ionBlur)="onArmBase($event)">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>180</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>arm shoulder</ion-label>
+      <ion-range min="0" max="180" [(ngModel)]="armShoulder"
+                 color="secondary" debounce="500" pin="true" step="5"
+                 (ionBlur)="onArmShoulder($event)">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>180</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>arm elbow</ion-label>
+      <ion-range min="0" max="180" [(ngModel)]="armElbow"
+                 color="secondary" debounce="500" pin="true" step="5"
+                 (ionBlur)="onArmElbow($event)">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>180</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>arm wrist</ion-label>
+      <ion-range min="0" max="180" [(ngModel)]="armWrist"
+                 color="secondary" debounce="500" pin="true" step="5"
+                 (ionBlur)="onArmWrist($event)">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>180</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>hand gripper</ion-label>
+      <ion-range min="0" max="180" [(ngModel)]="hand"
+                 color="secondary" debounce="500" pin="true" step="5"
+                 (ionBlur)="onHand($event)">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>180</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button block (click)="onRest()">Rest</button>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
