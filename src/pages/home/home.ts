@@ -18,14 +18,27 @@ enum Servo{
   templateUrl: 'home.html'
 })
 export class HomePage {
+  step: number = 5;
+  headPanMin: number=0;
+  headPanMax: number=180;
+  headTiltMin: number=0;
+  headTiltMax: number=180;
+  armBaseMin: number=0;
+  armBaseMax: number=180;
+  armShoulderMin: number=0;
+  armShoulderMax: number=180;
+  armElbowMin: number=0;
+  armElbowMax: number=180;
+  armWristMin: number=0;
+  armWristMax: number=180;
 
-  private headPan: number;
-  private headTilt: number;
-  private armElbow: number;
-  private armShoulder: number;
-  private armBase: number;
-  private armWrist: number;
-  private hand: number;
+  headPan: number;
+  headTilt: number;
+  armElbow: number;
+  armShoulder: number;
+  armBase: number;
+  armWrist: number;
+  hand: number;
 
   constructor(public navCtrl: NavController,public raspySvc: RaspyService) {
 
@@ -87,14 +100,43 @@ export class HomePage {
     return nPos;
   }
 
-  onRest(){
-    this.sendCommand(Servo.HEAD_TILT,180);//get head out of arm's way
-    this.sendCommand(Servo.BASE,85);
-    this.sendCommand(Servo.SHOULDER,0);
-    this.sendCommand(Servo.ELBOW,180);
-    this.sendCommand(Servo.WRIST,180);
-    this.sendCommand(Servo.HAND,180);//hand open
-    this.sendCommand(Servo.HEAD_PAN,75);//center head
-    this.sendCommand(Servo.HEAD_TILT,0);//put head down
+  onSleep(){
+    this.sendCommand(Servo.HEAD_TILT,180);//put head down
+
+    this.armBase = 85;
+    this.headPan = 75;
+    this.armShoulder = 0;
+    this.armElbow = 180;
+    this.armWrist = 180;
+    this.hand = 0;
+    this.headTilt = 0;
+
+    this.onArmBase();
+    this.onHeadPan();
+    this.onArmShoulder();
+    this.onArmElbow();
+    this.onArmWrist();
+    this.onHand();
+    this.onHeadTilt();
   }
+
+    onWakeUp(){
+        this.sendCommand(Servo.HEAD_TILT,180);//put head down
+
+        this.armBase = 85;
+        this.headPan = 75;
+        this.armShoulder = 0;
+        this.armElbow = 180;
+        this.armWrist = 180;
+        this.hand = 0;
+        this.headTilt = 90;
+
+        this.onArmBase();
+        this.onHeadPan();
+        this.onArmShoulder();
+        this.onArmElbow();
+        this.onArmWrist();
+        this.onHand();
+        this.onHeadTilt();
+    }
 }
