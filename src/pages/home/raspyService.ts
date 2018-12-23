@@ -7,9 +7,20 @@ import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 
 @Injectable()
 export class RaspyService{
-  private url = 'http://raspi-bot:7482/move';
+  private host = 'http://raspi-bot:7482';
+  private movePath = '/move';
+  private connectPath = '/connect';
+  private disconnectPath = '/disconnect';
 
   constructor(private http:HttpClient){}
+
+  connect(): Observable<any>{
+    return this.http.get(this.host+this.connectPath).pipe(catchError(RaspyService.handleError));
+  };
+
+  disconnect(): Observable<any>{
+    return this.http.get(this.host+this.disconnectPath).pipe(catchError(RaspyService.handleError));
+  };
 
   postCommand(cmd:Command): Observable<any>{
     const httpOptions = {
@@ -18,10 +29,10 @@ export class RaspyService{
       })
     };
 
-    return this.http.post<Command>(this.url,cmd,httpOptions).pipe(catchError(this.handleError));
+    return this.http.post<Command>(this.host+this.movePath,cmd,httpOptions).pipe(catchError(RaspyService.handleError));
   }
 
-  handleError(error:HttpErrorResponse){
+  static handleError(error:HttpErrorResponse){
     if(error.error instanceof ErrorEvent){
       console.error('an error occurred:',error.error.message);
     }

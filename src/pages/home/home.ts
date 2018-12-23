@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RaspyService} from "./raspyService";
+import {_} from 'underscore';
 
 enum Servo{
   ELBOW = 0,
@@ -32,51 +33,83 @@ export class HomePage {
   armWristMin: number=0;
   armWristMax: number=180;
 
-  headPan: number;
-  headTilt: number;
-  armElbow: number;
-  armShoulder: number;
-  armBase: number;
-  armWrist: number;
-  hand: number;
+  headPan: number = 0;
+  headTilt: number = 0;
+  armElbow: number = 0;
+  armShoulder: number = 0;
+  armBase: number = 0;
+  armWrist: number = 0;
+  hand: number = 0;
 
-  constructor(public navCtrl: NavController,public raspySvc: RaspyService) {
+  constructor(public navCtrl: NavController,public raspySvc: RaspyService) {}
 
-  }
+  onHeadTilt(_headTilt?:number){
+    if(!_.isUndefined(_headTilt))
+      this.headTilt = _headTilt;
 
-  onHeadTilt(){
     console.info('Head tilt position = '+this.headTilt);
     this.sendCommand(Servo.HEAD_TILT,this.headTilt);
   }
 
-  onHeadPan(){
+  onHeadPan(_headPan?:number){
+    if(!_.isUndefined(_headPan))
+      this.headPan = _headPan;
+
     console.info('Head pan position = '+this.headPan);
     this.sendCommand(Servo.HEAD_PAN,this.headPan);
   }
 
-  onArmElbow(){
+  onArmElbow(_armElbow?:number){
+    if(!_.isUndefined(_armElbow))
+      this.armElbow = _armElbow;
+
     console.info('Arm elbow position = '+this.armElbow);
     this.sendCommand(Servo.ELBOW,this.armElbow);
   }
 
-  onArmShoulder(){
+  onArmShoulder(_armShoulder?:number){
+    if(!_.isUndefined(_armShoulder))
+      this.armShoulder = _armShoulder;
+
     console.info('Arm shoulder position = '+this.armShoulder);
     this.sendCommand(Servo.SHOULDER,this.armShoulder);
   }
 
-  onArmBase(){
-    console.info('Arm base position = '+this.armBase);
-    this.sendCommand(Servo.BASE,this.armBase);
+  onArmBase(_armBase?:number){
+      if(!_.isUndefined(_armBase)) {
+        console.info('i sent my own arm base');
+        this.armBase = _armBase;
+      }
+      console.info('Arm base position = '+this.armBase);
+      this.sendCommand(Servo.BASE,this.armBase);
   }
 
-  onArmWrist(){
+  onArmWrist(_armWrist?:number){
+    if(!_.isUndefined(_armWrist))
+      this.armWrist = _armWrist;
+
     console.info('Arm wrist position = '+this.armWrist);
     this.sendCommand(Servo.WRIST,this.armWrist);
   }
 
-  onHand(){
+  onHand(_hand?:number){
+    if(!_.isUndefined(_hand))
+      this.hand = _hand;
+
     console.info('Hand gripper position = '+this.hand);
     this.sendCommand(Servo.HAND,this.hand);
+  }
+
+  onConnect(){
+    this.raspySvc.connect().subscribe(
+        res=> {console.info('Successfully connected to raspi-bot.')},
+        err=>{console.info('failed to connect to raspi-bot.'+err)});
+  }
+
+  onDisconnect(){
+      this.raspySvc.disconnect().subscribe(
+          res=> {console.info('Successfully disconnected to raspi-bot.')},
+          err=>{console.info('failed to disconnect to raspi-bot.'+err)});
   }
 
   sendCommand(servo:number,pos:number) {
@@ -87,7 +120,7 @@ export class HomePage {
 
     this.raspySvc.postCommand(cmd).subscribe(
       res=> {console.info('rx response from raspi-bot.')},
-      err=>{console.info('no word from raspi-bot.')});
+      err=>{console.info('no word from raspi-bot.'+err)});
   }
 
   //convert 0-180 degrees to 3000-9000 for servo positions.
@@ -101,42 +134,24 @@ export class HomePage {
   }
 
   onSleep(){
-    this.sendCommand(Servo.HEAD_TILT,180);//put head down
-
-    this.armBase = 85;
-    this.headPan = 75;
-    this.armShoulder = 0;
-    this.armElbow = 180;
-    this.armWrist = 180;
-    this.hand = 0;
-    this.headTilt = 0;
-
-    this.onArmBase();
-    this.onHeadPan();
-    this.onArmShoulder();
-    this.onArmElbow();
-    this.onArmWrist();
-    this.onHand();
-    this.onHeadTilt();
+    //this.sendCommand(Servo.HEAD_TILT,180);//put head down
+    this.onArmBase(85);
+    this.onHeadPan(75);
+    this.onArmShoulder(0);
+    this.onArmElbow(180);
+    this.onArmWrist(180);
+    this.onHand(0);
+    this.onHeadTilt(0);
   }
 
     onWakeUp(){
-        this.sendCommand(Servo.HEAD_TILT,180);//put head down
-
-        this.armBase = 85;
-        this.headPan = 75;
-        this.armShoulder = 0;
-        this.armElbow = 180;
-        this.armWrist = 180;
-        this.hand = 0;
-        this.headTilt = 90;
-
-        this.onArmBase();
-        this.onHeadPan();
-        this.onArmShoulder();
-        this.onArmElbow();
-        this.onArmWrist();
-        this.onHand();
-        this.onHeadTilt();
+        //this.sendCommand(Servo.HEAD_TILT,180);//put head down
+        this.onArmBase(85);
+        this.onHeadPan(75);
+        this.onArmShoulder(0);
+        this.onArmElbow(180);
+        this.onArmWrist(180);
+        this.onHand(0);
+        this.onHeadTilt(90);
     }
 }

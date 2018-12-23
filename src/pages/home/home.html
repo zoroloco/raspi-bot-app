@@ -12,9 +12,9 @@
       <ion-label>head pan: {{headPan}}</ion-label>
       <ion-range min={{headPanMin}} max={{headPanMax}} [(ngModel)]="headPan"
                  color="secondary" debounce="500" pin="true" step={{step}}
-                 (ionBlur)="onHeadPan($event)">
-        <ion-label range-left>{{headPanMin}}</ion-label>
-        <ion-label range-right>{{headPanMax}}</ion-label>
+                 (ionBlur)="onHeadPan()">
+        <ion-label range-left>LEFT  {{headPanMin}}</ion-label>
+        <ion-label range-right>RIGHT  {{headPanMax}}</ion-label>
       </ion-range>
     </ion-item>
 
@@ -22,9 +22,9 @@
       <ion-label>head tilt: {{headTilt}}</ion-label>
       <ion-range min={{headTiltMin}} max={{headTiltMax}} [(ngModel)]="headTilt"
                  color="secondary" debounce="500" pin="true" step={{step}}
-                 (ionBlur)="onHeadTilt($event)">
-        <ion-label range-left>{{headTiltMin}}</ion-label>
-        <ion-label range-right>{{headTiltMax}}</ion-label>
+                 (ionBlur)="onHeadTilt()">
+        <ion-label range-left>DOWN  {{headTiltMin}}</ion-label>
+        <ion-label range-right>UP  {{headTiltMax}}</ion-label>
       </ion-range>
     </ion-item>
 
@@ -32,9 +32,9 @@
       <ion-label>arm base: {{armBase}}</ion-label>
       <ion-range min={{armBaseMin}} max={{armBaseMax}} [(ngModel)]="armBase"
                  color="secondary" debounce="500" pin="true" step={{step}}
-                 (ionBlur)="onArmBase($event)">
-        <ion-label range-left>{{armBaseMin}}</ion-label>
-        <ion-label range-right>{{armBaseMax}}</ion-label>
+                 (ionBlur)="onArmBase()">
+        <ion-label range-left>RIGHT  {{armBaseMin}}</ion-label>
+        <ion-label range-right>LEFT  {{armBaseMax}}</ion-label>
       </ion-range>
     </ion-item>
 
@@ -42,9 +42,9 @@
       <ion-label>arm shoulder: {{armShoulder}}</ion-label>
       <ion-range min={{armShoulderMin}} max={{armShoulderMax}} [(ngModel)]="armShoulder"
                  color="secondary" debounce="500" pin="true" step={{step}}
-                 (ionBlur)="onArmShoulder($event)">
-        <ion-label range-left>{{armShoulderMin}}</ion-label>
-        <ion-label range-right>{{armShoulderMax}}</ion-label>
+                 (ionBlur)="onArmShoulder()">
+        <ion-label range-left>UP  {{armShoulderMin}}</ion-label>
+        <ion-label range-right>DOWN  {{armShoulderMax}}</ion-label>
       </ion-range>
     </ion-item>
 
@@ -52,9 +52,9 @@
       <ion-label>arm elbow: {{armElbow}}</ion-label>
       <ion-range min={{armElbowMin}} max={{armElbowMax}} [(ngModel)]="armElbow"
                  color="secondary" debounce="500" pin="true" step={{step}}
-                 (ionBlur)="onArmElbow($event)">
-        <ion-label range-left>{{armElbowMin}}</ion-label>
-        <ion-label range-right>{{armElbowMax}}</ion-label>
+                 (ionBlur)="onArmElbow()">
+        <ion-label range-left>UP  {{armElbowMin}}</ion-label>
+        <ion-label range-right>DOWN  {{armElbowMax}}</ion-label>
       </ion-range>
     </ion-item>
 
@@ -62,9 +62,9 @@
       <ion-label>arm wrist: {{armWrist}}</ion-label>
       <ion-range min={{armWristMin}} max={{armWristMax}} [(ngModel)]="armWrist"
                  color="secondary" debounce="500" pin="true" step={{step}}
-                 (ionBlur)="onArmWrist($event)">
-        <ion-label range-left>{{armWristMin}}</ion-label>
-        <ion-label range-right>{{armWristMax}}</ion-label>
+                 (ionBlur)="onArmWrist()">
+        <ion-label range-left>UP  {{armWristMin}}</ion-label>
+        <ion-label range-right>DOWN  {{armWristMax}}</ion-label>
       </ion-range>
     </ion-item>
 
@@ -72,10 +72,18 @@
       <ion-label>hand gripper: {{hand}}</ion-label>
       <ion-range min="0" max="180" [(ngModel)]="hand"
                  color="secondary" debounce="500" pin="true" step={{step}}
-                 (ionBlur)="onHand($event)">
-        <ion-label range-left>0</ion-label>
-        <ion-label range-right>180</ion-label>
+                 (ionBlur)="onHand()">
+        <ion-label range-left>CLOSE  0</ion-label>
+        <ion-label range-right>OPEN  180</ion-label>
       </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button color="secondary" block (click)="onConnect()">Connect</button>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button color="danger" block (click)="onDisconnect()">Disconnect</button>
     </ion-item>
 
     <ion-item>
