@@ -142,6 +142,8 @@ export class HomePage {
     this.onArmWrist(180);
     this.onHand(0);
     this.onHeadTilt(0);
+
+    this.onDisconnect();
   }
 
     onWakeUp(){

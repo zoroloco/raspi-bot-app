@@ -7,7 +7,7 @@ import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 
 @Injectable()
 export class RaspyService{
-  private host = 'http://raspi-bot:7482';
+  private host = 'http://192.168.1.237:7482';
   private movePath = '/move';
   private connectPath = '/connect';
   private disconnectPath = '/disconnect';
